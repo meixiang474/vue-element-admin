@@ -1,5 +1,6 @@
 <template>
   <div>
+    <input />
     <h1>Dashboard page</h1>
     <svg-icon icon-class="bug"></svg-icon>
     <!-- icon-class svg图标名称 class-name 额外的自定义类名 @click绑定事件 -->
