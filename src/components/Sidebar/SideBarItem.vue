@@ -1,7 +1,12 @@
 <template>
   <div class="sidebar-item-container" v-if="!item.meta || !item.meta.hidden">
     <!-- 一个路由下只有一个子路由时，只渲染这个子路由 -->
-    <template v-if="theOnlyChildRoute && !theOnlyChildRoute.children">
+    <template
+      v-if="
+        theOnlyChildRoute &&
+          (!theOnlyChildRoute.children || theOnlyChildRoute.noShowingChildren)
+      "
+    >
       <sidebar-item-link
         v-if="theOnlyChildRoute.meta"
         :to="resolvePath(theOnlyChildRoute.path)"
@@ -42,6 +47,8 @@ import path from "path";
 import SidebarItemLink from "./SidebarItemLink.vue";
 import { isExternal } from "@/utils/validate";
 
+type EnhancedRouteRecordRaw = RouteRecordRaw & { noShowingChildren: boolean };
+
 export default defineComponent({
   name: "SidebarItem",
   components: {
@@ -78,7 +85,8 @@ export default defineComponent({
       // 只有一个子路由，需要筛选出meta中hidden不为true的
       if (item.value.children) {
         for (const child of item.value.children) {
-          if (!child.meta || !child.meta.hidden) return child;
+          if (!child.meta || !child.meta.hidden)
+            return child as EnhancedRouteRecordRaw;
         }
       }
 
@@ -87,7 +95,8 @@ export default defineComponent({
       return {
         ...props.item,
         path: "", // resolvePath避免resolve拼接时发生重复
-      };
+        noShowingChildren: true,
+      } as EnhancedRouteRecordRaw;
     });
 
     // menu icon
