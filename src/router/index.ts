@@ -111,7 +111,8 @@ export const constantRoutes: Array<RouteRecordRaw> = [
           ),
         meta: {
           title: "Dashboard",
-          icon: "dashboard",
+          // icon: "dashboard",
+          icon: "el-icon-platform-eleme",
         },
       },
     ],
