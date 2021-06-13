@@ -7,6 +7,8 @@ import {
   ElMenu,
   ElMenuItem,
   ElSubmenu,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
 } from "element-plus";
 import "element-plus/lib/theme-chalk/index.css";
 import lang from "element-plus/lib/locale/lang/zh-cn";
@@ -19,7 +21,14 @@ export default (app: App) => {
   locale.use(lang);
 
   // 按需导入组件
-  const components = [ElButton, ElMenu, ElMenuItem, ElSubmenu];
+  const components = [
+    ElButton,
+    ElMenu,
+    ElMenuItem,
+    ElSubmenu,
+    ElBreadcrumb,
+    ElBreadcrumbItem,
+  ];
 
   components.forEach((component) => {
     app.component(component.name, component);
