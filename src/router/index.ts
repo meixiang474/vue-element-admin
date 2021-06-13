@@ -47,6 +47,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     meta: {
       title: "System",
       icon: "lock",
+      alwaysShow: true,
     },
     children: [
       {
@@ -66,6 +67,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         meta: {
           title: "Role Management",
           icon: "list",
+          hidden: true,
         },
       },
       {

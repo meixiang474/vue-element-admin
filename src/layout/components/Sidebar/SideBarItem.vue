@@ -1,12 +1,7 @@
 <template>
   <div class="sidebar-item-container" v-if="!item.meta || !item.meta.hidden">
     <!-- 一个路由下只有一个子路由时，只渲染这个子路由 -->
-    <template
-      v-if="
-        theOnlyChildRoute &&
-          (!theOnlyChildRoute.children || theOnlyChildRoute.noShowingChildren)
-      "
-    >
+    <template v-if="theOnlyChildRoute && isRenderSingleRoute">
       <sidebar-item-link
         v-if="theOnlyChildRoute.meta"
         :to="resolvePath(theOnlyChildRoute.path)"
@@ -56,8 +51,6 @@ import path from "path";
 import SidebarItemLink from "./SidebarItemLink.vue";
 import { isExternal } from "@/utils/validate";
 
-type EnhancedRouteRecordRaw = RouteRecordRaw & { noShowingChildren: boolean };
-
 export default defineComponent({
   name: "SidebarItem",
   components: {
@@ -94,8 +87,7 @@ export default defineComponent({
       // 只有一个子路由，需要筛选出meta中hidden不为true的
       if (item.value.children) {
         for (const child of item.value.children) {
-          if (!child.meta || !child.meta.hidden)
-            return child as EnhancedRouteRecordRaw;
+          if (!child.meta || !child.meta.hidden) return child;
         }
       }
 
@@ -104,8 +96,7 @@ export default defineComponent({
       return {
         ...props.item,
         path: "", // resolvePath避免resolve拼接时发生重复
-        noShowingChildren: true,
-      } as EnhancedRouteRecordRaw;
+      };
     });
 
     // menu icon
@@ -124,10 +115,25 @@ export default defineComponent({
       return path.resolve(props.basePath, childPath);
     };
 
+    // 只有一个子路由时，也显示父路由
+    const alwaysShowRootMenu = computed(
+      () => props.item.meta && props.item.meta.alwaysShow
+    );
+
+    // 是否有可渲染的路由
+    const noShowingChildren = computed(() => showingChildNumber.value === 0);
+
+    const isRenderSingleRoute = computed(
+      () =>
+        !alwaysShowRootMenu.value &&
+        (!theOnlyChildRoute.value?.children || noShowingChildren.value)
+    );
+
     return {
       theOnlyChildRoute,
       icon,
       resolvePath,
+      isRenderSingleRoute,
     };
   },
 });
