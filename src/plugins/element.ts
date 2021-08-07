@@ -9,6 +9,13 @@ import {
   ElSubmenu,
   ElBreadcrumb,
   ElBreadcrumbItem,
+  ElDropdown,
+  ElTooltip,
+  ElDropdownMenu,
+  ElDropdownItem,
+  ElRow,
+  ElCol,
+  ElScrollbar,
 } from "element-plus";
 import "element-plus/lib/theme-chalk/index.css";
 import lang from "element-plus/lib/locale/lang/zh-cn";
@@ -17,7 +24,11 @@ import "dayjs/locale/zh-cn";
 
 export type Size = "default" | "medium" | "small" | "mini";
 
-export default (app: App) => {
+interface ElementOptions {
+  size: Size;
+}
+
+export default (app: App, options: ElementOptions) => {
   locale.use(lang);
 
   // 按需导入组件
@@ -28,6 +39,13 @@ export default (app: App) => {
     ElSubmenu,
     ElBreadcrumb,
     ElBreadcrumbItem,
+    ElDropdown,
+    ElTooltip,
+    ElDropdownItem,
+    ElDropdownMenu,
+    ElRow,
+    ElCol,
+    ElScrollbar,
   ];
 
   components.forEach((component) => {
@@ -43,6 +61,6 @@ export default (app: App) => {
   // 全局配置
   // 修改组件默认尺寸为medium
   app.config.globalProperties.$ELEMENT = {
-    size: "medium",
+    size: options.size,
   };
 };

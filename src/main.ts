@@ -1,9 +1,9 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
+import store, { key } from "./store";
 // element plus
-import installElementPlus from "@/plugins/element";
+import installElementPlus, { Size } from "@/plugins/element";
 import { ElMessageBox, ElMessage, ElNotification } from "element-plus";
 // 初始化css 重置css默认样式
 import "normalize.css/normalize.css";
@@ -14,9 +14,11 @@ import initSvgIcon from "@/icons/index";
 
 const app = createApp(App);
 app
-  .use(store)
+  .use(store, key)
   .use(router)
-  .use(installElementPlus)
+  .use(installElementPlus, {
+    size: store.state.app.size,
+  })
   .use(initSvgIcon)
   .mount("#app");
 
@@ -28,5 +30,8 @@ declare module "@vue/runtime-core" {
     $confirm: typeof ElMessageBox.confirm;
     $alert: typeof ElMessageBox.alert;
     $prompt: typeof ElMessageBox.prompt;
+    $ELEMENT: {
+      size: Size;
+    };
   }
 }

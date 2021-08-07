@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Layout from "@/layout/index.vue";
 
 // 异步获取路由
@@ -51,6 +51,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     children: [
       {
         path: "menu",
+        name: "Menu Management",
         component: () =>
           import(/* webpackChunkName: "menu" */ "@/views/system/menu.vue"),
         meta: {
@@ -60,6 +61,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       },
       {
         path: "role",
+        name: "Role Management",
         component: () =>
           import(/* webpackChunkName: "role" */ "@/views/system/role.vue"),
         meta: {
@@ -69,6 +71,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       },
       {
         path: "user",
+        name: "User Management",
         component: () =>
           import(/* webpackChunkName: "user" */ "@/views/system/user.vue"),
         meta: {
@@ -92,6 +95,14 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       },
     ],
   },
+  {
+    // 404一定放在要在最后面
+    path: "/:pathMatch(.*)*",
+    redirect: "/404",
+    meta: {
+      hidden: true,
+    },
+  },
 ];
 
 export const constantRoutes: Array<RouteRecordRaw> = [
@@ -112,16 +123,58 @@ export const constantRoutes: Array<RouteRecordRaw> = [
           title: "Dashboard",
           // icon: "dashboard",
           icon: "el-icon-platform-eleme",
+          affix: true,
         },
       },
     ],
+  },
+  {
+    path: "/redirect",
+    name: "Redirect",
+    component: Layout,
+    meta: {
+      hidden: true,
+    },
+    children: [
+      {
+        path: "/redirect/:path(.*)",
+        component: () =>
+          import(
+            /* webpackChunkName: "redirect" */ "@/views/redirect/index.vue"
+          ),
+      },
+    ],
+  },
+  {
+    path: "/401",
+    name: "401",
+    component: Layout,
+    children: [
+      {
+        path: "",
+        component: () =>
+          import(/* webpackChunkName: "401" */ "@/views/error-page/401.vue"),
+      },
+    ],
+    meta: {
+      hidden: false,
+    },
+  },
+  {
+    path: "/404",
+    name: "404",
+    component: () =>
+      import(/* webpackChunkName: "404" */ "@/views/error-page/404.vue"),
+    meta: {
+      hidden: true,
+    },
   },
 ];
 
 export const routes = [...constantRoutes, ...asyncRoutes];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(process.env.BASE_URL),
   routes,
 });
 

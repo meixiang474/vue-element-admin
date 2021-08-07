@@ -1,16 +1,14 @@
 <template>
   <div class="app-wrapper">
     <div class="sidebar-container">
-      <sidebar></sidebar>
+      <Sidebar></Sidebar>
     </div>
     <div class="main-container">
       <div class="header">
-        <div class="navbar">
-          <breadcrumb></breadcrumb>
-        </div>
-        <div class="tags-view">tagsview</div>
+        <Navbar></Navbar>
+        <TagsView></TagsView>
       </div>
-      <app-main></app-main>
+      <AppMain></AppMain>
     </div>
   </div>
 </template>
@@ -19,13 +17,15 @@
 import { defineComponent } from "vue";
 import Sidebar from "./components/Sidebar/index.vue";
 import AppMain from "./components/AppMain/index.vue";
-import Breadcrumb from "@/components/Breadcrumb/index.vue";
+import Navbar from "./components/Navbar/index.vue";
+import TagsView from "./components/TagsView/index.vue";
 
 export default defineComponent({
   components: {
     Sidebar,
     AppMain,
-    Breadcrumb,
+    Navbar,
+    TagsView,
   },
 });
 </script>
@@ -39,6 +39,7 @@ export default defineComponent({
     flex: 1;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     .header {
       .navbar {
         height: 50px;
