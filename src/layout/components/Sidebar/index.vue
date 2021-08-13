@@ -5,7 +5,7 @@
     :default-active="activeMenu"
     :background-color="scssVariables.menuBg"
     :text-color="scssVariables.menuText"
-    :active-text-color="scssVariables.menuActiveText"
+    :active-text-color="themeColor"
     :collapse="isCollapse"
     collapse-transition
   >
@@ -50,13 +50,15 @@ export default defineComponent({
 
     // 渲染路由
     const menuRoutes = computed(() => routes);
-    console.log(menuRoutes.value);
+
+    const themeColor = computed(() => store.getters.themeColor);
 
     return {
       scssVariables,
       isCollapse,
       activeMenu,
       menuRoutes,
+      themeColor,
     };
   },
 });

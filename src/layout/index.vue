@@ -5,20 +5,30 @@
     </div>
     <div class="main-container">
       <div class="header">
-        <Navbar></Navbar>
+        <Navbar @show-setting="openSetting"></Navbar>
         <TagsView></TagsView>
       </div>
       <AppMain></AppMain>
+      <RightPanel
+        v-model="showSetting"
+        title="样式风格设置"
+        :size="SettingsPanelWidth"
+      >
+        <settings></settings>
+      </RightPanel>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import Sidebar from "./components/Sidebar/index.vue";
 import AppMain from "./components/AppMain/index.vue";
 import Navbar from "./components/Navbar/index.vue";
 import TagsView from "./components/TagsView/index.vue";
+import RightPanel from "@/components/RightPanel/index.vue";
+import Settings from "./components/Settings/index.vue";
+import variables from "@/styles/variables.scss";
 
 export default defineComponent({
   components: {
@@ -26,6 +36,21 @@ export default defineComponent({
     AppMain,
     Navbar,
     TagsView,
+    RightPanel,
+    Settings,
+  },
+  setup() {
+    const showSetting = ref(false);
+
+    const openSetting = () => {
+      showSetting.value = true;
+    };
+
+    return {
+      showSetting,
+      openSetting,
+      SettingsPanelWidth: variables.settingPanelWidth,
+    };
   },
 });
 </script>

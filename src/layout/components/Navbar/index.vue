@@ -6,6 +6,12 @@
     ></Hambuger>
     <Breadcrumb></Breadcrumb>
     <div class="right-menu">
+      <div
+        @click="openShowSetting"
+        class="setting right-menu-item hover-effect"
+      >
+        <i class="el-icon-s-tools"></i>
+      </div>
       <el-tooltip content="Global Size" effect="dark" placement="bottom">
         <SizeSelect class="right-menu-item hover-effect"></SizeSelect>
       </el-tooltip>
@@ -37,7 +43,8 @@ export default defineComponent({
     SizeSelect,
     Avatar,
   },
-  setup() {
+  emits: ["showSetting"],
+  setup(props, ctx) {
     const store = useStore();
 
     const toggleSidebar = () => {
@@ -46,9 +53,15 @@ export default defineComponent({
 
     const sidebar = computed(() => store.state.app.sidebar);
 
+    // 打开设置面板
+    const openShowSetting = () => {
+      ctx.emit("showSetting", true);
+    };
+
     return {
       toggleSidebar,
       sidebar,
+      openShowSetting,
     };
   },
 });
@@ -66,6 +79,9 @@ export default defineComponent({
     align-items: center;
     justify-content: flex-end;
     padding-right: 15px;
+    .setting {
+      font-size: 26px;
+    }
     &-item {
       padding: 0 8px;
       font-size: 18px;

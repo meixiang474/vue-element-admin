@@ -7,6 +7,7 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const router = useRouter();
+    console.log(route.path);
     const { query, params } = route;
     router.replace({
       path: "/" + params.path,

@@ -15,3 +15,6 @@ export const DEL_ALL_VISITED_VIEWS = "tagsView/DEL_ALL_VISITED_VIEWS";
 export const DEL_OTHERS_VIEWS = "tagsView/DEL_OTHERS_VIEWS";
 export const DEL_OTHERS_VISITED_VIEWS = "tagsView/DEL_OTHERS_VISITED_VIEWS";
 export const DEL_OTHER_CACHED_VIEWS = "tagsView/DEL_OTHER_CACHED_VIEWS";
+
+// settings
+export const CHANGE_SETTINGS = "settings/CHANGE_SETTINGS";
