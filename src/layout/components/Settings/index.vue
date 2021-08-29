@@ -5,17 +5,58 @@
       <!-- 主题组件 -->
       <theme-picker />
     </div>
+    <div class="drawer-item">
+      <span>Open Tags-View</span>
+      <el-switch v-model="tagsView" class="drawer-switch"></el-switch>
+    </div>
+    <div class="drawer-item">
+      <span>Sidebar Logo</span>
+      <el-switch v-model="showSidebarLogo" class="drawer-switch"></el-switch>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@vue/runtime-core";
+import { defineComponent, computed } from "@vue/runtime-core";
 import ThemePicker from "@/components/ThemePicker/index.vue";
+import { useStore } from "@/store";
+import * as actionTypes from "@/store/constants";
 
 export default defineComponent({
   name: "Settings",
   components: {
     ThemePicker,
+  },
+  setup() {
+    const store = useStore();
+    const tagsView = computed({
+      get() {
+        return store.state.settings.tagsView;
+      },
+      set(val: boolean) {
+        store.dispatch(`settings/${actionTypes.CHANGE_SETTINGS}`, {
+          key: "tagsView",
+          value: val,
+        });
+      },
+    });
+
+    const showSidebarLogo = computed({
+      get() {
+        return store.state.settings.sidebarLogo;
+      },
+      set(val: boolean) {
+        store.dispatch(`settings/${actionTypes.CHANGE_SETTINGS}`, {
+          key: "sidebarLogo",
+          value: val,
+        });
+      },
+    });
+
+    return {
+      tagsView,
+      showSidebarLogo,
+    };
   },
 });
 </script>

@@ -65,7 +65,7 @@ import {
 import * as actionTypes from "@/store/constants";
 import { routes } from "@/router";
 import path from "path";
-import ScrollPanel from "./ScrollPanel.vue";
+import ScrollPanel from "../../../components/ScrollPanel/index.vue";
 
 enum TagCommandType {
   All = "all",

@@ -23,7 +23,12 @@ const persistedAppState = createPersistedState({
 const persistedSettingsState = createPersistedState({
   storage: window.sessionStorage,
   key: "vuex_settings",
-  paths: ["settings.theme", "settings.originalStyle"],
+  paths: [
+    "settings.theme",
+    "settings.originalStyle",
+    "settings.tagsView",
+    "settings.sidebarLogo",
+  ],
 });
 
 export default createStore<RootState>({

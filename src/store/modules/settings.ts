@@ -6,6 +6,8 @@ import * as actionTypes from "../constants";
 export interface SettingsState {
   theme: string;
   originalStyle: string;
+  tagsView: boolean;
+  sidebarLogo: boolean;
 }
 
 type ValueOf<T> = T[keyof T];
@@ -18,7 +20,7 @@ interface Settings {
 const mutations: MutationTree<SettingsState> = {
   [actionTypes.CHANGE_SETTINGS]: (state, { key, value }: Settings) => {
     if (key in state) {
-      state[key] = value;
+      (state[key] as ValueOf<SettingsState>) = value;
     }
   },
 };
@@ -34,6 +36,8 @@ const settings: Module<SettingsState, RootState> = {
   state: {
     theme: variables.theme,
     originalStyle: "",
+    tagsView: true,
+    sidebarLogo: true,
   },
   mutations,
   actions,

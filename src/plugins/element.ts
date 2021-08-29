@@ -18,6 +18,7 @@ import {
   ElScrollbar,
   ElDrawer,
   ElColorPicker,
+  ElSwitch,
 } from "element-plus";
 import lang from "element-plus/lib/locale/lang/zh-cn";
 import locale from "element-plus/lib/locale/index";
@@ -49,6 +50,7 @@ export default (app: App, options: ElementOptions) => {
     ElScrollbar,
     ElDrawer,
     ElColorPicker,
+    ElSwitch,
   ];
 
   components.forEach((component) => {
